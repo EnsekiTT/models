@@ -138,7 +138,9 @@ def cifar10_model_fn(features, labels, mode):
 def input_fn():
   print("Image path :" + FLAGS.image)
   img = Image.open(FLAGS.image)
+  img = img.resize((32,32)).convert('RGB')
   data = tf.cast(np.asarray([np.asarray(img)]), tf.float32)
+  print(data)
   dataset = tf.contrib.data.Dataset()
   dataset = dataset.from_tensors(data)
   iterator = dataset.make_one_shot_iterator()
@@ -152,6 +154,7 @@ def main(unused_argv):
   cifar_classifier = tf.estimator.Estimator(
       model_fn=cifar10_model_fn, model_dir=FLAGS.model_dir)
   a = cifar_classifier.predict(input_fn)
+  print(a)
   print(list(a))
 
 if __name__ == '__main__':

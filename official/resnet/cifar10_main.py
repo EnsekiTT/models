@@ -223,7 +223,6 @@ def cifar10_model_fn(features, labels, mode):
       train_op = optimizer.minimize(loss, global_step)
   else:
     train_op = None
-
   accuracy= tf.metrics.accuracy(
       tf.argmax(labels, axis=1), predictions['classes'])
   metrics = {'accuracy': accuracy}
